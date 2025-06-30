@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 const CustomData = ({children, className}: {children: ReactNode, className?: string}) => {
   return (

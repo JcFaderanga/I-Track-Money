@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAndStoreSession, subscribeToAuthChanges } from '@/utils/authService';
 import { useUserStore } from '@/store/useUserStore';
