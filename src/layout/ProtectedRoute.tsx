@@ -8,8 +8,8 @@ interface ProtectedRouteProps {
   children: ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
- const setUser = useUserStore((state)=> state.setUser);
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const {setUser} = useUserStore();
 
   const navigate = useNavigate();
   const [checking, setChecking] = useState(true);
