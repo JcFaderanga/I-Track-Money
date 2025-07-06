@@ -9,8 +9,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const {setUser} = useUserStore();
-
+  const { setUser } = useUserStore();
   const navigate = useNavigate();
   const [checking, setChecking] = useState(true);
 
@@ -19,11 +18,15 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
     const init = async () => {
       const currentSession = await getAndStoreSession();
+
       if (!currentSession) {
-        navigate('/login');
+        if (window.location.pathname !== '/login') {
+          navigate('/login');
+        }
+      } else {
+        setUser(currentSession.user);
       }
-     
-      setUser(currentSession?.user);
+
       unsub = subscribeToAuthChanges();
       setChecking(false);
     };
@@ -33,10 +36,9 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     return () => {
       if (unsub) unsub();
     };
+  }, [navigate, setUser]);
 
-  }, [navigate]);
-
-  if (checking) return null; // Or add a spinner/loading UI
+  if (checking) return null; // Add a spinner here if preferred
 
   return <>{children}</>;
 };
